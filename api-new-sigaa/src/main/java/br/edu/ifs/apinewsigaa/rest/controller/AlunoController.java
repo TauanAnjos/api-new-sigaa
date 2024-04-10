@@ -56,8 +56,7 @@ public class AlunoController {
             updateAlunoo.setCelular(alunoDTO.celular());
             updateAlunoo.setApelido(alunoDTO.apelido());
             updateAlunoo.setMatricula(alunoDTO.matricula());
-            alunoService.saveAluno(updateAlunoo);
-           return ResponseEntity.status(HttpStatus.OK).body(updateAlunoo);
+           return ResponseEntity.status(HttpStatus.OK).body(alunoService.saveAluno(updateAlunoo));
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         }
