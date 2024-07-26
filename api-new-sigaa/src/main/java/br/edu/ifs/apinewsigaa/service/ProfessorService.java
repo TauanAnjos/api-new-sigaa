@@ -10,22 +10,5 @@ import java.util.Optional;
 
 @Service
 public class ProfessorService {
-    @Autowired
-    private ProfessorRepository professorRepository;
 
-    public ProfessorModel saveProfessor(ProfessorModel professorModel) {
-        return professorRepository.save(professorModel);
-    }
-
-    public List<ProfessorModel> getAllProfessor() {
-        return professorRepository.findAll();
-    }
-
-    public Optional<ProfessorModel> getOneProfessor(int professorId) {
-        return professorRepository.findById(professorId);
-    }
-
-    public void deleteProfessor(int professorModel) {
-        professorRepository.deleteById(professorModel);
-    }
 }

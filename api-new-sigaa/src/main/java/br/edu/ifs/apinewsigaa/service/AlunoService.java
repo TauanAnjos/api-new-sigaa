@@ -10,23 +10,5 @@ import java.util.Optional;
 
 @Service
 public class AlunoService {
-    @Autowired
-    private AlunoRepository alunoRepository;
 
-    public AlunoModel saveAluno(AlunoModel alunoModel) {
-        return alunoRepository.save(alunoModel);
-    }
-
-
-    public List<AlunoModel> getAllAlunos() {
-        return alunoRepository.findAll();
-    }
-
-    public Optional<AlunoModel> getAlunoId(int alunoID) {
-        return alunoRepository.findById(alunoID);
-    }
-
-    public void deleteAluno(int alunoModel) {
-        alunoRepository.deleteById(alunoModel);
-    }
 }

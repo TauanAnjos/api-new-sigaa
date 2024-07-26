@@ -10,22 +10,5 @@ import java.util.Optional;
 
 @Service
 public class DisciplinaService {
-    @Autowired
-    private DisciplinaRepository disciplinaRepository;
 
-    public DisciplinaModel saveDisciplina(DisciplinaModel disciplinaModel) {
-        return disciplinaRepository.save(disciplinaModel);
-    }
-
-    public List<DisciplinaModel> getAllDisciplinas() {
-        return disciplinaRepository.findAll();
-    }
-
-    public Optional<DisciplinaModel> getDisciplinaId(int disciplinaId) {
-        return disciplinaRepository.findById(disciplinaId);
-    }
-
-    public void deleteDisciplina(int disciplinaId) {
-        disciplinaRepository.deleteById(disciplinaId);
-    }
 }

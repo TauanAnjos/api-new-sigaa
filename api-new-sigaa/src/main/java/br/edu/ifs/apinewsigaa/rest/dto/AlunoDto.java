@@ -1,17 +1,11 @@
-package br.edu.ifs.apinewsigaa.model;
+package br.edu.ifs.apinewsigaa.rest.dto;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import br.edu.ifs.apinewsigaa.model.AlunoModel;
+import jakarta.persistence.Column;
 
 import java.util.Date;
 
-@Data
-@Entity
-@Table(name = "aluno")
-public class AlunoModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class AlunoDto {
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
@@ -25,6 +19,5 @@ public class AlunoModel {
     @Column(name = "apelido", length = 255, nullable = true)
     private String apelido;
     @Column(name = "matricula", nullable = false, unique = true)
-    private String matricula;
-
+    private int matricula;
 }

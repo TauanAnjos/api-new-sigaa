@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TurmaService {
-    @Autowired
-    private TurmaRepository turmaRepository;
+
 }

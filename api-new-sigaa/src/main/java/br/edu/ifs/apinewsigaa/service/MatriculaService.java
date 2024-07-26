@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MatriculaService {
-    @Autowired
-    private MatriculaRepository matriculaRepository;
+
 }
