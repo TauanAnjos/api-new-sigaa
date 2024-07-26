@@ -1,11 +1,13 @@
 package br.edu.ifs.apinewsigaa.rest.dto;
 
-import br.edu.ifs.apinewsigaa.model.AlunoModel;
+
+
 import jakarta.persistence.Column;
 
 import java.util.Date;
 
 public class AlunoDto {
+
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
@@ -19,5 +21,5 @@ public class AlunoDto {
     @Column(name = "apelido", length = 255, nullable = true)
     private String apelido;
     @Column(name = "matricula", nullable = false, unique = true)
-    private int matricula;
+    private String matricula;
 }
