@@ -3,9 +3,10 @@ package br.edu.ifs.apinewsigaa.rest.dto;
 
 
 import jakarta.persistence.Column;
+import lombok.Data;
 
 import java.util.Date;
-
+@Data
 public class AlunoDto {
 
     @Column(name = "nome", length = 255, nullable = false)

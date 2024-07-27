@@ -8,7 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AlunoService {
@@ -23,5 +25,10 @@ public class AlunoService {
         AlunoModel alunoModel = alunoOptional.orElseThrow(() ->
                 new ObjectNotFoundException("ERRO: Matricula não encontrada! Matricula: " + matricula));
         return modelMapper.map(alunoModel, AlunoDto.class);
+    }
+
+    public List<AlunoDto> listaDeAlunos(){
+        List<AlunoModel> listAluno= alunoRepository.findAll();
+        return listAluno.stream().map(aluno -> modelMapper.map(aluno, AlunoDto.class)).collect(Collectors.toList());
     }
 }

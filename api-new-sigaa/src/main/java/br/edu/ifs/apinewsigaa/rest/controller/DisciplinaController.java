@@ -13,8 +13,23 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("disciplinas")
+@RequestMapping("/disciplina")
 public class DisciplinaController {
+
+    @Autowired
+    private DisciplinaService disciplinaService;
+
+    @GetMapping
+    public ResponseEntity<List<DisciplinaDto>> todasDisciplinas(){
+        List<DisciplinaDto> list = disciplinaService.TodasDisciplinas();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/{nomeDisciplina}")
+    public ResponseEntity<DisciplinaDto> buscarDisciplinaNome(@PathVariable("nomeDisciplina") String nome){
+        DisciplinaDto disciplinaDto = disciplinaService.BuscarDisciplinaPorNome(nome);
+        return ResponseEntity.ok(disciplinaDto);
+    }
 
 
 }

@@ -13,5 +13,5 @@ public interface ProfessorRepository extends JpaRepository<ProfessorModel, Integ
     Optional<ProfessorModel> findByNome(String nome);
 
     Optional<ProfessorModel> findByEmail(String email);
-    Optional<ProfessorModel> findByMatricula(int matricula);
+    Optional<ProfessorModel> findByMatricula(String matricula);
 }

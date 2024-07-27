@@ -13,7 +13,22 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("professores")
+@RequestMapping("/professor")
 public class ProfessorController {
+
+    @Autowired
+    private ProfessorService professorService;
+
+    @GetMapping
+    public ResponseEntity<List<ProfessorDto>> todosProfessores(){
+        List<ProfessorDto> list = professorService.todosProfessores();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/{matricula}")
+    public ResponseEntity<ProfessorDto> BuscarProfessorPorMatricula(@PathVariable("matricula") String matricula){
+        ProfessorDto professorDto = professorService.buscarPorMatricula(matricula);
+        return ResponseEntity.ok(professorDto);
+    }
 
 }
