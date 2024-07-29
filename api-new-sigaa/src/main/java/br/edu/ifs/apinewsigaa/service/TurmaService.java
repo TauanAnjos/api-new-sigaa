@@ -35,6 +35,7 @@ public class TurmaService {
     public void deleteTurma(int id){
         TurmaModel turma = turmaRepository.findById(id).orElseThrow(() ->
                 new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id ));
+        turmaRepository.deleteById(id);
     }
 
 }
