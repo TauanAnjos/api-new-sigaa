@@ -29,9 +29,9 @@ public class AlunoController {
     }
 
     @DeleteMapping("/{matricula}")
-    public ResponseEntity<AlunoDto> deleteByMatricula(@PathVariable("matricula") String matricula){
+    public ResponseEntity<String> deleteByMatricula(@PathVariable("matricula") String matricula){
         alunoService.deletePorMatricula(matricula);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Matricula deletada com sucesso!");
     }
 
 }

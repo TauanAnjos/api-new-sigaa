@@ -32,4 +32,9 @@ public class TurmaService {
         return list.stream().map(turmas -> modelMapper.map(turmas, TurmaDto.class)).collect(Collectors.toList());
     }
 
+    public void deleteTurma(int id){
+        TurmaModel turma = turmaRepository.findById(id).orElseThrow(() ->
+                new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id ));
+    }
+
 }

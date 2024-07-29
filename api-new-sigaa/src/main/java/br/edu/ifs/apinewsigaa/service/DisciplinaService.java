@@ -5,6 +5,7 @@ import br.edu.ifs.apinewsigaa.exception.ObjectNotFoundException;
 import br.edu.ifs.apinewsigaa.model.DisciplinaModel;
 import br.edu.ifs.apinewsigaa.repository.DisciplinaRepository;
 import br.edu.ifs.apinewsigaa.rest.dto.DisciplinaDto;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,12 @@ public class DisciplinaService {
     public List<DisciplinaDto> TodasDisciplinas(){
         List<DisciplinaModel> list = disciplinaRepository.findAll();
         return list.stream().map(disciplina -> modelMapper.map(disciplina, DisciplinaDto.class)).collect(Collectors.toList());
+    }
+
+
+    public void deleteDisciplinaPorId(int id){
+        DisciplinaModel disciplina = disciplinaRepository.findById(id).orElseThrow(() ->
+                new ObjectNotFoundException("Erro: Disciplina não encontrada! ID disicplina: " + id));
+        disciplinaRepository.deleteById(id);
     }
 }

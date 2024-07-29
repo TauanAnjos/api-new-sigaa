@@ -31,5 +31,9 @@ public class DisciplinaController {
         return ResponseEntity.ok(disciplinaDto);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteDisciplina(@PathVariable("id") int id){
+        disciplinaService.deleteDisciplinaPorId(id);
+        return ResponseEntity.ok("Disciplina deletada com sucesso!");
+    }
 }

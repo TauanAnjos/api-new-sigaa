@@ -31,4 +31,10 @@ public class ProfessorController {
         return ResponseEntity.ok(professorDto);
     }
 
+    @DeleteMapping("/{matricula}")
+    public ResponseEntity<String> deletePorMatricula(@PathVariable("matricula") String matricula){
+        professorService.deletePorMatricula(matricula);
+        return ResponseEntity.ok("Matricula deletada com sucesso!");
+    }
+
 }
