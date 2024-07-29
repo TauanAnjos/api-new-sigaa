@@ -8,7 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TurmaService {
@@ -23,6 +25,11 @@ public class TurmaService {
         Optional<TurmaModel> turmaOptional = turmaRepository.findById(id);
         TurmaModel turmaModel = turmaOptional.orElseThrow(() -> new ObjectNotFoundException("Erro: Turma não encontrada! ID Turma: " + id));
         return modelMapper.map(turmaModel, TurmaDto.class);
+    }
+
+    public List<TurmaDto> buscarTurmas(){
+        List<TurmaModel> list = turmaRepository.findAll();
+        return list.stream().map(turmas -> modelMapper.map(turmas, TurmaDto.class)).collect(Collectors.toList());
     }
 
 }

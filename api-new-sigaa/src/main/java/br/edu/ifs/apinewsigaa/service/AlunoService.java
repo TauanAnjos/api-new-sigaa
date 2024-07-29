@@ -4,6 +4,7 @@ import br.edu.ifs.apinewsigaa.exception.ObjectNotFoundException;
 import br.edu.ifs.apinewsigaa.model.AlunoModel;
 import br.edu.ifs.apinewsigaa.repository.AlunoRepository;
 import br.edu.ifs.apinewsigaa.rest.dto.AlunoDto;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,11 @@ public class AlunoService {
     public List<AlunoDto> listaDeAlunos(){
         List<AlunoModel> listAluno= alunoRepository.findAll();
         return listAluno.stream().map(aluno -> modelMapper.map(aluno, AlunoDto.class)).collect(Collectors.toList());
+    }
+    @Transactional
+    public void deletePorMatricula(String matricula){
+        AlunoModel aluno = alunoRepository.findByMatricula(matricula).
+                orElseThrow(() -> new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
+        alunoRepository.deleteByMatricula(aluno.getMatricula());
     }
 }

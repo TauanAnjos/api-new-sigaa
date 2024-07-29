@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/turma")
 public class TurmaController {
@@ -19,5 +21,10 @@ public class TurmaController {
     public ResponseEntity<TurmaDto> buscarPorId(@PathVariable("id") int id){
         TurmaDto turmaDto = turmaService.buscarTurmaPorId(id);
         return ResponseEntity.ok(turmaDto);
+    }
+    @GetMapping
+    public ResponseEntity<List<TurmaDto>> findaAll(){
+        List<TurmaDto> list = turmaService.buscarTurmas();
+        return ResponseEntity.ok(list);
     }
 }
