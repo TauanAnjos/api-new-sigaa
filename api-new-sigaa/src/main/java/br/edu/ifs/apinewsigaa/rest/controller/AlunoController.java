@@ -1,4 +1,5 @@
 package br.edu.ifs.apinewsigaa.rest.controller;
+import br.edu.ifs.apinewsigaa.model.AlunoModel;
 import br.edu.ifs.apinewsigaa.rest.dto.AlunoDto;
 import br.edu.ifs.apinewsigaa.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ public class AlunoController {
 
     @Autowired
     private AlunoService alunoService;
+
+    @PostMapping
+    public ResponseEntity<AlunoDto> salvarAluno(@RequestBody AlunoModel aluno){
+        AlunoDto alunoDto = alunoService.SalvarAluno(aluno);
+        return ResponseEntity.ok(alunoDto);
+    }
 
     @GetMapping
     public ResponseEntity<List<AlunoDto>> buscarTodos(){

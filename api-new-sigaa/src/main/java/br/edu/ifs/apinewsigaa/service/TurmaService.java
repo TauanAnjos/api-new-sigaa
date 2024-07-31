@@ -21,6 +21,11 @@ public class TurmaService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public TurmaDto salvarTurma(TurmaModel turmaModel){
+        turmaRepository.save(turmaModel);
+        return modelMapper.map(turmaModel, TurmaDto.class);
+    }
+
     public TurmaDto buscarTurmaPorId(int id){
         Optional<TurmaModel> turmaOptional = turmaRepository.findById(id);
         TurmaModel turmaModel = turmaOptional.orElseThrow(() -> new ObjectNotFoundException("Erro: Turma não encontrada! ID Turma: " + id));

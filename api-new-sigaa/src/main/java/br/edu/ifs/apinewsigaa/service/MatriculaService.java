@@ -22,6 +22,11 @@ public class MatriculaService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public MatriculaDto salvarMatricula(MatriculaModel matriculaModel){
+        matriculaRepository.save(matriculaModel);
+        return modelMapper.map(matriculaModel, MatriculaDto.class);
+    }
+
     public MatriculaDto buscarMatricula(int matricula){
         Optional<MatriculaModel> matriculaOptional = matriculaRepository.findById(matricula);
         MatriculaModel matriculaModel = matriculaOptional.orElseThrow(() ->

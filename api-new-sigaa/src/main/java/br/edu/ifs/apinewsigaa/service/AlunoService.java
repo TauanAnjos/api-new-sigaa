@@ -21,6 +21,12 @@ public class AlunoService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Transactional
+    public AlunoDto SalvarAluno(AlunoModel alunoModel){
+        alunoRepository.save(alunoModel);
+        return modelMapper.map(alunoModel, AlunoDto.class);
+    }
+
     public AlunoDto ObterPorMatricula(String matricula){
         Optional<AlunoModel> alunoOptional = alunoRepository.findByMatricula(matricula);
         AlunoModel alunoModel = alunoOptional.orElseThrow(() ->

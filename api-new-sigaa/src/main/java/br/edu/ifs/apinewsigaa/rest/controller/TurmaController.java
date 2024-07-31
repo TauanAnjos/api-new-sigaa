@@ -1,5 +1,6 @@
 package br.edu.ifs.apinewsigaa.rest.controller;
 
+import br.edu.ifs.apinewsigaa.model.TurmaModel;
 import br.edu.ifs.apinewsigaa.rest.dto.TurmaDto;
 import br.edu.ifs.apinewsigaa.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,12 @@ import java.util.List;
 public class TurmaController {
     @Autowired
     private TurmaService turmaService;
+
+    @PostMapping
+    public ResponseEntity<TurmaDto> salvarTurma(@RequestBody TurmaModel turmaModel){
+        TurmaDto turmaDto = turmaService.salvarTurma(turmaModel);
+        return ResponseEntity.ok(turmaDto);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TurmaDto> buscarPorId(@PathVariable("id") int id){

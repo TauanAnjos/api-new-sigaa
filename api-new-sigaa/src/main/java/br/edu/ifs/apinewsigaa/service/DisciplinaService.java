@@ -24,6 +24,11 @@ public class DisciplinaService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public DisciplinaDto salvarDisciplina(DisciplinaModel disciplinaModel){
+        disciplinaRepository.save(disciplinaModel);
+        return modelMapper.map(disciplinaModel, DisciplinaDto.class);
+    }
+
     public DisciplinaDto BuscarDisciplinaPorNome(String nome){
         Optional<DisciplinaModel> nomeDisciplina = disciplinaRepository.findByNome(nome);
         DisciplinaModel disciplinaModel = nomeDisciplina.orElseThrow(() ->

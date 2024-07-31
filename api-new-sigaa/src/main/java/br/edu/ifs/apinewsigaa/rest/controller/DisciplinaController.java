@@ -19,6 +19,12 @@ public class DisciplinaController {
     @Autowired
     private DisciplinaService disciplinaService;
 
+    @PostMapping
+    public ResponseEntity<DisciplinaDto> salvarDisciplina(@RequestBody DisciplinaModel disciplinaModel){
+        DisciplinaDto disciplinaDto = disciplinaService.salvarDisciplina(disciplinaModel);
+        return ResponseEntity.ok(disciplinaDto);
+    }
+
     @GetMapping
     public ResponseEntity<List<DisciplinaDto>> todasDisciplinas(){
         List<DisciplinaDto> list = disciplinaService.TodasDisciplinas();

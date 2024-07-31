@@ -21,6 +21,11 @@ public class ProfessorService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public ProfessorDto salvarProfessor(ProfessorModel professorModel){
+        professorRepository.save(professorModel);
+        return modelMapper.map(professorModel, ProfessorDto.class);
+    }
+
     public ProfessorDto buscarPorMatricula(String matricula){
         Optional<ProfessorModel> professorOptional = professorRepository.findByMatricula(matricula);
         ProfessorModel professorModel = professorOptional.orElseThrow(() ->

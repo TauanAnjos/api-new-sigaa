@@ -1,5 +1,6 @@
 package br.edu.ifs.apinewsigaa.rest.controller;
 
+import br.edu.ifs.apinewsigaa.model.MatriculaModel;
 import br.edu.ifs.apinewsigaa.rest.dto.MatriculaDto;
 import br.edu.ifs.apinewsigaa.service.MatriculaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,12 @@ public class MatriculaController {
 
     @Autowired
     private MatriculaService matriculaService;
+
+    @PostMapping
+    public ResponseEntity<MatriculaDto> salvarMatricula(@RequestBody MatriculaModel matriculaModel){
+        MatriculaDto matriculaDto = matriculaService.salvarMatricula(matriculaModel);
+        return ResponseEntity.ok(matriculaDto);
+    }
 
     @GetMapping
     public ResponseEntity<List<MatriculaDto>> todasMatriculas(){

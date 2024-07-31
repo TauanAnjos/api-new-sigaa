@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,12 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
+
+    @PostMapping
+    public ResponseEntity<ProfessorDto> salvarProfessor(@RequestBody ProfessorModel professorModel){
+        ProfessorDto professorDto = professorService.salvarProfessor(professorModel);
+        return ResponseEntity.ok(professorDto);
+    }
 
     @GetMapping
     public ResponseEntity<List<ProfessorDto>> todosProfessores(){
