@@ -39,4 +39,10 @@ public class MatriculaController {
         matriculaService.deleteMatricula(id);
         return ResponseEntity.ok("Matricula deletada com sucesso!");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MatriculaDto> atualizarMatricula(@PathVariable("id")int id, @RequestBody MatriculaDto matriculaDto){
+        matriculaService.atualizarMatricula(id, matriculaDto);
+        return ResponseEntity.ok(matriculaDto);
+    }
 }

@@ -44,4 +44,20 @@ public class ProfessorService {
                 new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
         professorRepository.deleteByMatricula(professor.getMatricula());
     }
+
+    public ProfessorDto atualizarProfessor(String matricula, ProfessorDto professorDto){
+        ProfessorModel professorModel = professorRepository.findByMatricula(matricula).orElseThrow(()->
+                new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
+
+        professorModel.setNome(professorDto.getNome());
+        professorModel.setCpf(professorDto.getCpf());
+        professorModel.setDataNascimento(professorDto.getDataNascimento());
+        professorModel.setEmail(professorDto.getEmail());
+        professorModel.setCelular(professorDto.getCelular());
+
+        professorRepository.save(professorModel);
+
+        return modelMapper.map(professorModel, ProfessorDto.class);
+
+    }
 }

@@ -44,4 +44,21 @@ public class AlunoService {
                 orElseThrow(() -> new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
         alunoRepository.deleteByMatricula(aluno.getMatricula());
     }
+
+    public AlunoDto atualizarAluno(String matricula, AlunoDto alunoDto){
+
+        AlunoModel alunoModel = alunoRepository.findByMatricula(matricula).orElseThrow(() ->
+                new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
+
+        alunoModel.setNome(alunoDto.getNome());
+        alunoModel.setCpf(alunoDto.getCpf());
+        alunoModel.setEmail(alunoDto.getEmail());
+        alunoModel.setDataNascimento(alunoDto.getDataNascimento());
+        alunoModel.setCelular(alunoDto.getCelular());
+        alunoModel.setApelido(alunoDto.getApelido());
+
+        alunoRepository.save(alunoModel);
+
+        return modelMapper.map(alunoModel, AlunoDto.class);
+    }
 }

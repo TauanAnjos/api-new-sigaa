@@ -36,4 +36,10 @@ public class TurmaController {
         turmaService.deleteTurma(id);
         return ResponseEntity.ok("Turma deletada com sucesso!");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TurmaDto> atualizarTurma(@PathVariable("id")int id, @RequestBody TurmaDto turmaDto){
+        turmaService.atualizarTurma(id, turmaDto);
+        return ResponseEntity.ok(turmaDto);
+    }
 }

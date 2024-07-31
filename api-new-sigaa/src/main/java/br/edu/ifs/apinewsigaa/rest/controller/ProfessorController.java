@@ -44,4 +44,9 @@ public class ProfessorController {
         return ResponseEntity.ok("Matricula deletada com sucesso!");
     }
 
+    @PutMapping("/{matricula}")
+    public ResponseEntity<ProfessorDto> atualizarProfessor(@PathVariable("matricula")String matricula, @RequestBody ProfessorDto professorDto){
+        professorService.atualizarProfessor(matricula, professorDto);
+        return ResponseEntity.ok(professorDto);
+    }
 }

@@ -41,4 +41,10 @@ public class AlunoController {
         return ResponseEntity.ok("Matricula deletada com sucesso!");
     }
 
+    @PutMapping("/{matricula}")
+    public ResponseEntity<AlunoDto> atualizarAluno(@PathVariable("matricula")String matricula, @RequestBody AlunoDto alunoDto){
+        alunoService.atualizarAluno(matricula, alunoDto);
+        return ResponseEntity.ok(alunoDto);
+    }
+
 }

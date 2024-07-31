@@ -27,10 +27,10 @@ public class MatriculaService {
         return modelMapper.map(matriculaModel, MatriculaDto.class);
     }
 
-    public MatriculaDto buscarMatricula(int matricula){
-        Optional<MatriculaModel> matriculaOptional = matriculaRepository.findById(matricula);
+    public MatriculaDto buscarMatricula(int id){
+        Optional<MatriculaModel> matriculaOptional = matriculaRepository.findById(id);
         MatriculaModel matriculaModel = matriculaOptional.orElseThrow(() ->
-                new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
+                new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + id));
         return modelMapper.map(matriculaModel, MatriculaDto.class);
     }
 
@@ -42,5 +42,17 @@ public class MatriculaService {
         MatriculaModel matriculaModel = matriculaRepository.findById(id).orElseThrow(()->
                 new ObjectNotFoundException("Erro: ID de matricula não encontrado! ID: " + id));
         matriculaRepository.deleteById(id);
+    }
+
+    public MatriculaDto atualizarMatricula(int id, MatriculaDto matriculaDto){
+        MatriculaModel matriculaModel = matriculaRepository.findById(id).orElseThrow(()->
+                new ObjectNotFoundException("Erro: ID de matricula não encontrado! ID: " + id));
+
+        matriculaModel.setIdAluno(matriculaDto.getIdAluno());
+        matriculaModel.setIdTurma(matriculaDto.getIdTurma());
+
+        matriculaRepository.save(matriculaModel);
+
+        return modelMapper.map(matriculaModel, MatriculaDto.class);
     }
 }

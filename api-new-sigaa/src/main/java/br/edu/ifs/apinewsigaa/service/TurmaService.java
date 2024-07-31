@@ -39,8 +39,20 @@ public class TurmaService {
 
     public void deleteTurma(int id){
         TurmaModel turma = turmaRepository.findById(id).orElseThrow(() ->
-                new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id ));
+                new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id));
         turmaRepository.deleteById(id);
     }
 
+    public TurmaDto atualizarTurma(int id, TurmaDto turmaDto){
+        TurmaModel turmaModel = turmaRepository.findById(id).orElseThrow(()->
+                new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id));
+
+        turmaModel.setDataInicio(turmaDto.getDataInicio());
+        turmaModel.setDataFim(turmaDto.getDataFim());
+        turmaModel.setIdProfessor(turmaDto.getIdProfessor());
+        turmaModel.setIdDisciplina(turmaDto.getIdDisciplina());
+
+        turmaRepository.save(turmaModel);
+        return modelMapper.map(turmaModel, TurmaDto.class);
+    }
 }

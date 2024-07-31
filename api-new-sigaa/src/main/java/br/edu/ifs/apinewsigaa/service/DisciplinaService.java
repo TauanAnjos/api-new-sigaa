@@ -47,4 +47,16 @@ public class DisciplinaService {
                 new ObjectNotFoundException("Erro: Disciplina não encontrada! ID disicplina: " + id));
         disciplinaRepository.deleteById(id);
     }
+
+    public DisciplinaDto atualizarDisciplina(String nome, DisciplinaDto disciplinaDto){
+        DisciplinaModel disciplinaModel = disciplinaRepository.findByNome(nome).orElseThrow(()->
+                new ObjectNotFoundException("Erro: Disciplina não encontrada! ID disicplina: " + nome));
+
+        disciplinaModel.setNome(disciplinaDto.getNome());
+        disciplinaModel.setNumeroCreditos(disciplinaDto.getNumeroCreditos());
+
+        disciplinaRepository.save(disciplinaModel);
+
+        return modelMapper.map(disciplinaModel, DisciplinaDto.class);
+    }
 }

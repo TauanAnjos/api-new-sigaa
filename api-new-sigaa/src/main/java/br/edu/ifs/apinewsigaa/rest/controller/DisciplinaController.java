@@ -42,4 +42,10 @@ public class DisciplinaController {
         disciplinaService.deleteDisciplinaPorId(id);
         return ResponseEntity.ok("Disciplina deletada com sucesso!");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DisciplinaDto> atualizarDisciplina(@PathVariable("id")String nome, @RequestBody DisciplinaDto disciplinaDto){
+        disciplinaService.atualizarDisciplina(nome, disciplinaDto);
+        return ResponseEntity.ok(disciplinaDto);
+    }
 }
