@@ -1,5 +1,6 @@
 package br.edu.ifs.apinewsigaa.model;
 
+import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,4 +26,8 @@ public class ProfessorModel {
     private String celular;
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
+
+    public ProfessorDto toDto(){
+        return new ProfessorDto();
+    }
 }

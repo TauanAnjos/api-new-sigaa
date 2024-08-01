@@ -1,5 +1,6 @@
 package br.edu.ifs.apinewsigaa.model;
 
+import br.edu.ifs.apinewsigaa.rest.dto.TurmaDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,4 +21,8 @@ public class TurmaModel {
     private int idProfessor;
     @Column(name = "idDisciplina", nullable = false)
     private int idDisciplina;
+
+    public TurmaDto toDto(){
+        return new TurmaDto();
+    }
 }

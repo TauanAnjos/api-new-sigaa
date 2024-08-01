@@ -1,5 +1,6 @@
 package br.edu.ifs.apinewsigaa.model;
 
+import br.edu.ifs.apinewsigaa.rest.dto.AlunoDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,4 +28,7 @@ public class AlunoModel {
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
 
+    public AlunoDto toDto(){
+        return new AlunoDto();
+    }
 }

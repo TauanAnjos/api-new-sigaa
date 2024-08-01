@@ -1,13 +1,17 @@
 package br.edu.ifs.apinewsigaa.rest.dto;
 
 
+import br.edu.ifs.apinewsigaa.model.MatriculaModel;
 import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data
 public class MatriculaDto {
-    @Column(name = "idAluno", nullable = false)
+
     private int idAluno;
-    @Column(name = "idTurma", nullable = false)
     private int idTurma;
+
+    public MatriculaModel toModel(){
+        return new MatriculaModel();
+    }
 }
