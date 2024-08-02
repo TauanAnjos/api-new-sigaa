@@ -3,6 +3,7 @@ package br.edu.ifs.apinewsigaa.model;
 import br.edu.ifs.apinewsigaa.rest.dto.AlunoDto;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 
@@ -29,6 +30,7 @@ public class AlunoModel {
     private String matricula;
 
     public AlunoDto toDto(){
-        return new AlunoDto();
+        var modelMapper = new ModelMapper();
+        return modelMapper.map(this, AlunoDto.class);
     }
 }

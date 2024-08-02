@@ -45,8 +45,8 @@ public class ProfessorController {
     }
 
     @PutMapping("/{matricula}")
-    public ResponseEntity<ProfessorDto> atualizarProfessor(@PathVariable("matricula")String matricula, @RequestBody ProfessorDto professorDto){
-        professorService.atualizarProfessor(matricula, professorDto);
-        return ResponseEntity.ok(professorDto);
+    public ResponseEntity<ProfessorDto> atualizarProfessor(@PathVariable("matricula")String matricula, @RequestBody ProfessorModel professorModel){
+        professorService.atualizarProfessor(matricula, professorModel);
+        return ResponseEntity.ok(professorModel.toDto());
     }
 }

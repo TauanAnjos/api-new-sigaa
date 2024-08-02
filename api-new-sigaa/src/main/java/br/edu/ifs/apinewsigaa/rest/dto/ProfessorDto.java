@@ -2,6 +2,8 @@ package br.edu.ifs.apinewsigaa.rest.dto;
 
 import br.edu.ifs.apinewsigaa.model.ProfessorModel;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
+
 import java.util.Date;
 @Data
 public class ProfessorDto {
@@ -14,6 +16,7 @@ public class ProfessorDto {
     private int matricula;
 
     public ProfessorModel toModel(){
-        return new ProfessorModel();
+        var modelMapper = new ModelMapper();
+        return modelMapper.map(this, ProfessorModel.class);
     }
 }

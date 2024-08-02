@@ -1,13 +1,16 @@
 package br.edu.ifs.apinewsigaa.service;
 
+import br.edu.ifs.apinewsigaa.exception.DataIntegrityException;
 import br.edu.ifs.apinewsigaa.exception.ObjectNotFoundException;
 import br.edu.ifs.apinewsigaa.model.MatriculaModel;
 import br.edu.ifs.apinewsigaa.repository.MatriculaRepository;
 import br.edu.ifs.apinewsigaa.rest.dto.MatriculaDto;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import static br.edu.ifs.apinewsigaa.exception.DataIntegrityException.extrairErro;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +26,11 @@ public class MatriculaService {
     private ModelMapper modelMapper;
 
     public MatriculaDto salvarMatricula(MatriculaModel matriculaModel){
-        matriculaRepository.save(matriculaModel);
-        return modelMapper.map(matriculaModel, MatriculaDto.class);
+      try{
+          return matriculaRepository.save(matriculaModel).toDto();
+      }catch (DataIntegrityViolationException e){
+          throw new DataIntegrityException(extrairErro(e));
+      }
     }
 
     public MatriculaDto buscarMatricula(int id){
@@ -44,15 +50,14 @@ public class MatriculaService {
         matriculaRepository.deleteById(id);
     }
 
-    public MatriculaDto atualizarMatricula(int id, MatriculaDto matriculaDto){
-        MatriculaModel matriculaModel = matriculaRepository.findById(id).orElseThrow(()->
+    public MatriculaDto atualizarMatricula(int id, MatriculaModel matriculaModel){
+        MatriculaModel matriculaExistente = matriculaRepository.findById(id).orElseThrow(()->
                 new ObjectNotFoundException("Erro: ID de matricula não encontrado! ID: " + id));
-
-        matriculaModel.setIdAluno(matriculaDto.getIdAluno());
-        matriculaModel.setIdTurma(matriculaDto.getIdTurma());
-
-        matriculaRepository.save(matriculaModel);
-
-        return modelMapper.map(matriculaModel, MatriculaDto.class);
+        matriculaModel.setId(matriculaExistente.getId());
+        try {
+            return matriculaRepository.save(matriculaModel).toDto();
+        }catch (DataIntegrityViolationException e){
+            throw  new DataIntegrityException(extrairErro(e));
+        }
     }
 }

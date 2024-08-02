@@ -38,8 +38,8 @@ public class TurmaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TurmaDto> atualizarTurma(@PathVariable("id")int id, @RequestBody TurmaDto turmaDto){
-        turmaService.atualizarTurma(id, turmaDto);
-        return ResponseEntity.ok(turmaDto);
+    public ResponseEntity<TurmaDto> atualizarTurma(@PathVariable("id")int id, @RequestBody TurmaModel turmaModel){
+        turmaService.atualizarTurma(id, turmaModel);
+        return ResponseEntity.ok(turmaModel.toDto());
     }
 }

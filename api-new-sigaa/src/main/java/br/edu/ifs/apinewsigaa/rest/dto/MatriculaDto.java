@@ -4,6 +4,7 @@ package br.edu.ifs.apinewsigaa.rest.dto;
 import br.edu.ifs.apinewsigaa.model.MatriculaModel;
 import jakarta.persistence.Column;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
 
 @Data
 public class MatriculaDto {
@@ -12,6 +13,7 @@ public class MatriculaDto {
     private int idTurma;
 
     public MatriculaModel toModel(){
-        return new MatriculaModel();
+        var modelMapper = new ModelMapper();
+        return modelMapper.map(this, MatriculaModel.class);
     }
 }

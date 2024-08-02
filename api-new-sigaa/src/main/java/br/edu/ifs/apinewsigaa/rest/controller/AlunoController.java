@@ -42,9 +42,9 @@ public class AlunoController {
     }
 
     @PutMapping("/{matricula}")
-    public ResponseEntity<AlunoDto> atualizarAluno(@PathVariable("matricula")String matricula, @RequestBody AlunoDto alunoDto){
-        alunoService.atualizarAluno(matricula, alunoDto);
-        return ResponseEntity.ok(alunoDto);
+    public ResponseEntity<AlunoDto> atualizarAluno(@PathVariable("matricula")String matricula, @RequestBody AlunoModel alunoModel){
+        alunoService.atualizarAluno(matricula, alunoModel);
+        return ResponseEntity.ok(alunoModel.toDto());
     }
 
 }

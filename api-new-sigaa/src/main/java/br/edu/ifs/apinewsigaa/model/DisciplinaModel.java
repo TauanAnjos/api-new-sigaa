@@ -3,6 +3,7 @@ package br.edu.ifs.apinewsigaa.model;
 import br.edu.ifs.apinewsigaa.rest.dto.DisciplinaDto;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
 
 import javax.print.attribute.standard.MediaSize;
 
@@ -20,7 +21,8 @@ public class DisciplinaModel {
     private byte numeroCreditos;
 
     public DisciplinaDto toDto(){
-        return new DisciplinaDto();
+        var modelMapper = new ModelMapper();
+        return modelMapper.map(this, DisciplinaDto.class);
     }
 
 }

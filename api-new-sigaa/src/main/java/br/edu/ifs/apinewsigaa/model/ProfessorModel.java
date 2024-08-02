@@ -3,6 +3,7 @@ package br.edu.ifs.apinewsigaa.model;
 import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 
@@ -28,6 +29,7 @@ public class ProfessorModel {
     private String matricula;
 
     public ProfessorDto toDto(){
-        return new ProfessorDto();
+        var modelMapper = new ModelMapper();
+        return modelMapper.map(this, ProfessorDto.class);
     }
 }

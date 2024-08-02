@@ -41,8 +41,8 @@ public class MatriculaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MatriculaDto> atualizarMatricula(@PathVariable("id")int id, @RequestBody MatriculaDto matriculaDto){
-        matriculaService.atualizarMatricula(id, matriculaDto);
-        return ResponseEntity.ok(matriculaDto);
+    public ResponseEntity<MatriculaDto> atualizarMatricula(@PathVariable("id")int id, @RequestBody MatriculaModel matriculaModel){
+        matriculaService.atualizarMatricula(id, matriculaModel);
+        return ResponseEntity.ok(matriculaModel.toDto());
     }
 }
