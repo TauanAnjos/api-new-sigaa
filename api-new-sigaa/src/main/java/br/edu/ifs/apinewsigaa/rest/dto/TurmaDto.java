@@ -13,15 +13,13 @@ import java.util.Date;
 @Data
 public class TurmaDto {
     @NotNull(message = "Data de inicio obrigatório!")
-    @Past(message = "Digite uma data futura")
     private Date dataInicio;
     @NotNull(message = "Data de inicio obrigatório!")
-    @Past(message = "Digite uma data futura")
     private Date dataFim;
-    @NotBlank(message = "Campo ID professor é obrigatório!")
+    @NotNull(message = "Campo ID professor é obrigatório!")
     @Positive(message = "ID professor precisa ser positivos!")
     private int idProfessor;
-    @NotBlank(message = "Campo ID disciplina é obrigatório!")
+    @NotNull(message = "Campo ID disciplina é obrigatório!")
     @Positive(message = "ID disciplina precisa ser positivos!")
     private int idDisciplina;
 

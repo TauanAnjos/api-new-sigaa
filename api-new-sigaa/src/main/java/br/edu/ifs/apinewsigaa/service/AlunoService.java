@@ -54,17 +54,24 @@ public class AlunoService {
     }
 
     @Transactional
-    public AlunoDto atualizarAluno(AlunoModel alunoModel){
-        if(alunoRepository.existsById(alunoModel.getId())){
-            try {
-                return alunoRepository.save(alunoModel).toDto();
-            }catch (DataIntegrityViolationException e){
-                throw new DataIntegrityException(extrairErro(e));
-            }
-        }else {
-            throw new ObjectNotFoundException("Aluno não encontrado");
+    public AlunoDto atualizarAluno(String matricula, AlunoModel alunoModel){
+        AlunoModel alunoExistente = alunoRepository.findByMatricula(matricula).orElseThrow(()
+                -> new ObjectNotFoundException("Matricula não encontrada"));
+        alunoModel.setId(alunoExistente.getId());
+        try {
+            return alunoRepository.save(alunoModel).toDto();
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException(extrairErro(e));
         }
+
     }
 
-
+    @Transactional
+    public void deleteById(int id) {
+        if (alunoRepository.existsById(id)){
+            alunoRepository.deleteById(id);
+        }else {
+            throw new ObjectNotFoundException("O ID não existe no banco de dados!");
+        }
+    }
 }

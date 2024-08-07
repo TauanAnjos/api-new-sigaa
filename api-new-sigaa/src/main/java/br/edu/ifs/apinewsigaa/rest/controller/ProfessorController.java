@@ -33,24 +33,54 @@ public class ProfessorController {
         return ResponseEntity.ok(professorDto);
     }
 
+    @Operation(
+            summary = "Buscar professores",
+            description = "Buscar todos os professores no banco de dados",
+            tags = "Professor"
+    )
     @GetMapping
     public ResponseEntity<List<ProfessorDto>> todosProfessores(){
         List<ProfessorDto> list = professorService.todosProfessores();
         return ResponseEntity.ok(list);
     }
 
+    @Operation(
+            summary = "Buscar professor",
+            description = "Salva professor por matrícula, no banco de dados",
+            tags = "Professor"
+    )
     @GetMapping("/{matricula}")
     public ResponseEntity<ProfessorDto> BuscarProfessorPorMatricula(@PathVariable("matricula") String matricula){
         ProfessorDto professorDto = professorService.buscarPorMatricula(matricula);
         return ResponseEntity.ok(professorDto);
     }
 
-    @DeleteMapping("/{matricula}")
+    @Operation(
+            summary = "Deletar professor",
+            description = "Deletar professor através da matrícula, no banco de dados",
+            tags = "Professor"
+    )
+    @DeleteMapping("/matricula/{matricula}")
     public ResponseEntity<String> deletePorMatricula(@PathVariable("matricula") String matricula){
         professorService.deletePorMatricula(matricula);
         return ResponseEntity.ok("Matricula deletada com sucesso!");
     }
+    @Operation(
+            summary = "Deletar professor",
+            description = "Deletar professor através do ID, no banco de dados",
+            tags = "Professor"
+    )
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable("id")int id){
+        professorService.deleteById(id);
+        return ResponseEntity.ok("ID deletado com sucesso!");
+    }
 
+    @Operation(
+            summary = "Atualizar professor",
+            description = "Atualizar professor por matrícula, no banco de dados",
+            tags = "Professor"
+    )
     @PutMapping("/{matricula}")
     public ResponseEntity<ProfessorDto> atualizarProfessor(@PathVariable("matricula")String matricula, @RequestBody @Valid ProfessorDto professorExistente){
         professorService.atualizarProfessor(matricula, professorExistente.toModel());

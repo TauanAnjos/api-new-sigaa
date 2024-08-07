@@ -62,15 +62,4 @@ public class MatriculaController {
         matriculaService.deleteMatricula(id);
         return ResponseEntity.ok("Matricula deletada com sucesso!");
     }
-
-    @Operation(
-            summary = "Atualizar matricula",
-            description = "Atualizar matricula no banco de dados",
-            tags = "Matricula"
-    )
-    @PutMapping
-    public ResponseEntity<MatriculaDto> atualizarMatricula(@RequestBody @Valid MatriculaDto matriculaDto){
-        matriculaService.atualizarMatricula(matriculaDto.toModel());
-        return ResponseEntity.ok(matriculaDto);
-    }
 }

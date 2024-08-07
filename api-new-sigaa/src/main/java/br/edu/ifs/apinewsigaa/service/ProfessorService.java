@@ -65,4 +65,12 @@ public class ProfessorService {
         }
 
     }
+    @Transactional
+    public void deleteById(int id) {
+        if (professorRepository.existsById(id)){
+            professorRepository.deleteById(id);
+        }else {
+            throw new ObjectNotFoundException("ID não encontrado!");
+        }
+    }
 }

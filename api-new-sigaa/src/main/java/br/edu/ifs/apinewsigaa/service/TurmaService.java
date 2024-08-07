@@ -52,15 +52,5 @@ public class TurmaService {
                 new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id));
         turmaRepository.deleteById(id);
     }
-    @Transactional
-    public TurmaDto atualizarTurma(int id, TurmaModel turmaModel){
-        TurmaModel turmaExistente = turmaRepository.findById(id).orElseThrow(()->
-                new ObjectNotFoundException("Erro: ID de turma não encontrado! ID: "+ id));
-        turmaModel.setId(turmaExistente.getId());
-        try {
-            return turmaRepository.save(turmaModel).toDto();
-        }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException(extrairErro(e));
-        }
-    }
+
 }

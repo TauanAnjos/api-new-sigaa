@@ -57,20 +57,29 @@ public class AlunoController {
             description = "Deleta aluno através da matrícula",
             tags = "Aluno"
     )
-
-    @DeleteMapping("/{matricula}")
+    @DeleteMapping("/matricula/{matricula}")
     public ResponseEntity<String> deleteByMatricula(@PathVariable("matricula")String matricula){
         alunoService.deletePorMatricula(matricula);
         return ResponseEntity.ok("Matricula deletada com sucesso!");
+    }
+    @Operation(
+            summary = "Deleta aluno",
+            description = "Deleta aluno através do ID",
+            tags = "Aluno"
+    )
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable("id") int id){
+        alunoService.deleteById(id);
+        return ResponseEntity.ok("ID deletado com sucesso!");
     }
     @Operation(
             summary = "Atualiza aluno",
             description = "Atualiza um aluno existente no banco de dados",
             tags = "Aluno"
     )
-    @PutMapping
-    public ResponseEntity<AlunoDto> atualizarAluno(@RequestBody @Valid AlunoDto alunoExistente){
-        alunoService.atualizarAluno(alunoExistente.toModel());
+    @PutMapping("/{matricula}")
+    public ResponseEntity<AlunoDto> atualizarAluno(@PathVariable("matricula")String matricula, @RequestBody @Valid AlunoDto alunoExistente){
+        alunoService.atualizarAluno(matricula,alunoExistente.toModel());
         return ResponseEntity.ok(alunoExistente);
     }
 
