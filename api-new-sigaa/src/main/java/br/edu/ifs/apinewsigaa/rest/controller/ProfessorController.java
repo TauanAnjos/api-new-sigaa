@@ -3,6 +3,8 @@ package br.edu.ifs.apinewsigaa.rest.controller;
 import br.edu.ifs.apinewsigaa.model.ProfessorModel;
 import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import br.edu.ifs.apinewsigaa.service.ProfessorService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +22,14 @@ public class ProfessorController {
     @Autowired
     private ProfessorService professorService;
 
+    @Operation(
+            summary = "Salvar professor",
+            description = "Salva professor no banco de dados",
+            tags = "Professor"
+    )
     @PostMapping
-    public ResponseEntity<ProfessorDto> salvarProfessor(@RequestBody ProfessorModel professorModel){
-        ProfessorDto professorDto = professorService.salvarProfessor(professorModel);
+    public ResponseEntity<ProfessorDto> salvarProfessor(@RequestBody ProfessorDto professorDto){
+        professorService.salvarProfessor(professorDto.toModel());
         return ResponseEntity.ok(professorDto);
     }
 
@@ -45,8 +52,8 @@ public class ProfessorController {
     }
 
     @PutMapping("/{matricula}")
-    public ResponseEntity<ProfessorDto> atualizarProfessor(@PathVariable("matricula")String matricula, @RequestBody ProfessorModel professorModel){
-        professorService.atualizarProfessor(matricula, professorModel);
-        return ResponseEntity.ok(professorModel.toDto());
+    public ResponseEntity<ProfessorDto> atualizarProfessor(@PathVariable("matricula")String matricula, @RequestBody @Valid ProfessorDto professorExistente){
+        professorService.atualizarProfessor(matricula, professorExistente.toModel());
+        return ResponseEntity.ok(professorExistente);
     }
 }

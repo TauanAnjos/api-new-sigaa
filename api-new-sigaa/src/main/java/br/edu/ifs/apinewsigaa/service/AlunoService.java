@@ -1,5 +1,6 @@
 package br.edu.ifs.apinewsigaa.service;
 
+import br.edu.ifs.apinewsigaa.exception.BusinessRuleException;
 import br.edu.ifs.apinewsigaa.exception.DataIntegrityException;
 import br.edu.ifs.apinewsigaa.exception.ObjectNotFoundException;
 import br.edu.ifs.apinewsigaa.model.AlunoModel;
@@ -26,10 +27,10 @@ public class AlunoService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public AlunoDto SalvarAluno(AlunoModel alunoModel){
+    public AlunoDto SalvarAluno(AlunoDto aluno){
        try{
-           return alunoRepository.save(alunoModel).toDto();
-       }catch (DataIntegrityViolationException e){
+           return alunoRepository.save(aluno.toModel()).toDto();
+       }catch (DataIntegrityViolationException e) {
            throw new DataIntegrityException(extrairErro(e));
        }
     }
@@ -52,14 +53,16 @@ public class AlunoService {
         alunoRepository.deleteByMatricula(aluno.getMatricula());
     }
 
-    public AlunoDto atualizarAluno(String matricula, AlunoModel alunoModel){
-        AlunoModel alunoExistente = alunoRepository.findByMatricula(matricula).orElseThrow(()->
-                new ObjectNotFoundException("Erro: Matricula não encontrada! Matricula: " + matricula));
-        alunoModel.setId(alunoExistente.getId());
-        try {
-            return alunoRepository.save(alunoModel).toDto();
-        }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException(extrairErro(e));
+    @Transactional
+    public AlunoDto atualizarAluno(AlunoModel alunoModel){
+        if(alunoRepository.existsById(alunoModel.getId())){
+            try {
+                return alunoRepository.save(alunoModel).toDto();
+            }catch (DataIntegrityViolationException e){
+                throw new DataIntegrityException(extrairErro(e));
+            }
+        }else {
+            throw new ObjectNotFoundException("Aluno não encontrado");
         }
     }
 

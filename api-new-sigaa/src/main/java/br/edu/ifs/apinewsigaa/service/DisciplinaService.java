@@ -6,6 +6,7 @@ import br.edu.ifs.apinewsigaa.exception.ObjectNotFoundException;
 import br.edu.ifs.apinewsigaa.model.DisciplinaModel;
 import br.edu.ifs.apinewsigaa.repository.DisciplinaRepository;
 import br.edu.ifs.apinewsigaa.rest.dto.DisciplinaDto;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,14 +29,16 @@ public class DisciplinaService {
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Transactional
-    public DisciplinaDto salvarDisciplina(DisciplinaModel disciplinaModel){
+    public DisciplinaDto salvarDisciplina(DisciplinaDto disciplinaDto){
         try{
-            return disciplinaRepository.save(disciplinaModel).toDto();
+            return disciplinaRepository.save(disciplinaDto.toModel()).toDto();
         }catch (DataIntegrityViolationException e){
             throw new DataIntegrityException(extrairErro(e));
         }
     }
+
     @Transactional(readOnly = true)
     public DisciplinaDto BuscarDisciplinaPorNome(String nome){
         Optional<DisciplinaModel> nomeDisciplina = disciplinaRepository.findByNome(nome);
@@ -56,15 +59,15 @@ public class DisciplinaService {
         disciplinaRepository.deleteById(id);
     }
     @Transactional
-    public DisciplinaDto atualizarDisciplina(String nome, DisciplinaModel disciplinaModel){
-        DisciplinaModel disciplinaExistente = disciplinaRepository.findByNome(nome).orElseThrow(()->
-                new ObjectNotFoundException("Erro: Disciplina não encontrada! ID disicplina: " + nome));
-        disciplinaModel.setId(disciplinaExistente.getId());
-        try{
-            return disciplinaRepository.save(disciplinaExistente).toDto();
-        }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException(extrairErro(e));
+    public DisciplinaDto atualizarDisciplina(DisciplinaModel disciplinaExistente){
+        if(disciplinaRepository.existsById(disciplinaExistente.getId())) {
+            try {
+                return disciplinaRepository.save(disciplinaExistente).toDto();
+            } catch (DataIntegrityViolationException e) {
+                throw new DataIntegrityException(extrairErro(e));
+            }
+        }else {
+            throw new ObjectNotFoundException("Disciplina não encontrada");
         }
-
     }
 }

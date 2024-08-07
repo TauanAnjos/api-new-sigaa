@@ -12,4 +12,6 @@ public interface DisciplinaRepository extends JpaRepository<DisciplinaModel,Inte
 
     Optional<DisciplinaModel> findByNome(String nome);
     Optional<DisciplinaModel> findByNumeroCreditos(byte numeroCreditos);
+
+    boolean existsByNome(String nome);
 }
