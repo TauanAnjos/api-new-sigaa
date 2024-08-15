@@ -83,4 +83,10 @@ public class AlunoController {
         return ResponseEntity.ok(alunoExistente);
     }
 
+    @GetMapping("/obter-por-disciplina/{id}")
+    public ResponseEntity<List<AlunoDto>>  obterAlunoPorDisciplina(@PathVariable("id")int id){
+        List<AlunoDto> alunosDisciplina = alunoService.obterAlunoPorDisciplina(id);
+        return ResponseEntity.ok(alunosDisciplina);
+    }
+
 }

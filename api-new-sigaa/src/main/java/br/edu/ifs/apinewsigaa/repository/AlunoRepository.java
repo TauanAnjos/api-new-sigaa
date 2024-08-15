@@ -34,4 +34,12 @@ public interface AlunoRepository extends JpaRepository<AlunoModel, Integer> {
     @Query(value = "SELECT * FROM aluno a " + "WHERE a.email = :email", nativeQuery = true)
     List<AlunoModel> ObterAlunoPorEmail(@Param("email") String email);
 
+    @Query(value = """
+           SELECT a.* FROM aluno a
+           JOIN matricula m
+           ON m.id_aluno = a.id
+           JOIN turma t ON t.id_disciplina = :p1""", nativeQuery = true
+    )
+    List<AlunoModel> ObterAlunosPorDisciplina(@Param("p1")int idDisciplina);
+
 }

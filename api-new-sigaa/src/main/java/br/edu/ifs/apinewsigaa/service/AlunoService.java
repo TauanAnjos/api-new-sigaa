@@ -65,6 +65,14 @@ public class AlunoService {
         }
 
     }
+    @Transactional(readOnly = true)
+    public List<AlunoDto> obterAlunoPorDisciplina(int idDisciplina){
+        try{
+            return alunoRepository.ObterAlunosPorDisciplina(idDisciplina).stream().map(AlunoModel::toDto).collect(Collectors.toList());
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Erro ao encontrar aluno!");
+        }
+    }
 
     @Transactional
     public void deleteById(int id) {
