@@ -82,7 +82,11 @@ public class AlunoController {
         alunoService.atualizarAluno(matricula,alunoExistente.toModel());
         return ResponseEntity.ok(alunoExistente);
     }
-
+    @Operation(
+            summary = "Obter aluno por disciplina",
+            description = "Vai trazer todos os alunos através do id da disciplina",
+            tags = "Aluno"
+    )
     @GetMapping("/obter-por-disciplina/{id}")
     public ResponseEntity<List<AlunoDto>>  obterAlunoPorDisciplina(@PathVariable("id")int id){
         List<AlunoDto> alunosDisciplina = alunoService.obterAlunoPorDisciplina(id);

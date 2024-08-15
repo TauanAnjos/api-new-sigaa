@@ -17,8 +17,11 @@ public class DisciplinaModel {
     private int id;
     @Column(name = "nome", length = 255, nullable = false, unique = true)
     private String nome;
-    @Column(name = "numeroCreditos", nullable = false)
+    @Column(name = "numero_creditos", nullable = false)
     private byte numeroCreditos;
+    @ManyToOne
+    @JoinColumn(name = "id_professor")
+    private ProfessorModel professor;
 
     public DisciplinaDto toDto(){
         var modelMapper = new ModelMapper();

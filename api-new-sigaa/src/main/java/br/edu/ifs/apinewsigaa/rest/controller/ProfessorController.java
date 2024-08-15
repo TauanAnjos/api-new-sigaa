@@ -86,4 +86,5 @@ public class ProfessorController {
         professorService.atualizarProfessor(matricula, professorExistente.toModel());
         return ResponseEntity.ok(professorExistente);
     }
+
 }

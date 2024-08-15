@@ -18,10 +18,12 @@ public class TurmaModel {
     private Date dataInicio;
     @Column(name = "dataFim", nullable = false)
     private Date dataFim;
-    @Column(name = "idProfessor", nullable = false)
-    private int idProfessor;
-    @Column(name = "idDisciplina", nullable = false)
-    private int idDisciplina;
+    @ManyToOne
+    @JoinColumn(name = "idProfessor", nullable = false)
+    private ProfessorModel idProfessor;
+    @ManyToOne
+    @JoinColumn(name = "idDisciplina", nullable = false)
+    private DisciplinaModel idDisciplina;
 
     public TurmaDto toDto(){
         var modelMapper = new ModelMapper();

@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.modelmapper.ModelMapper;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 public class ProfessorDto {
 
@@ -26,6 +28,7 @@ public class ProfessorDto {
     private String celular;
     @NotBlank(message = "Campo matricula é obrigatório!")
     private String matricula;
+    private List<DisciplinaDto> disciplinas;
 
     public ProfessorModel toModel(){
         var modelMapper = new ModelMapper();

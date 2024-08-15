@@ -1,11 +1,13 @@
 package br.edu.ifs.apinewsigaa.model;
 
+import br.edu.ifs.apinewsigaa.rest.dto.DisciplinaDto;
 import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,6 +29,8 @@ public class ProfessorModel {
     private String celular;
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
+    @OneToMany(mappedBy = "professor")
+    private List<DisciplinaModel> disciplinas;
 
     public ProfessorDto toDto(){
         var modelMapper = new ModelMapper();

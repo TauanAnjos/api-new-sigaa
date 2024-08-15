@@ -2,8 +2,10 @@ package br.edu.ifs.apinewsigaa.service;
 
 import br.edu.ifs.apinewsigaa.exception.DataIntegrityException;
 import br.edu.ifs.apinewsigaa.exception.ObjectNotFoundException;
+import br.edu.ifs.apinewsigaa.model.DisciplinaModel;
 import br.edu.ifs.apinewsigaa.model.ProfessorModel;
 import br.edu.ifs.apinewsigaa.repository.ProfessorRepository;
+import br.edu.ifs.apinewsigaa.rest.dto.DisciplinaDto;
 import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
@@ -39,7 +41,13 @@ public class ProfessorService {
         Optional<ProfessorModel> professorOptional = professorRepository.findByMatricula(matricula);
         ProfessorModel professorModel = professorOptional.orElseThrow(() ->
                 new ObjectNotFoundException("Error: Matricula não encontrada! Matricula: " + matricula));
-        return professorModel.toDto();
+
+        ProfessorDto professorDto = professorModel.toDto();
+        List<DisciplinaModel> disciplinasLecionada =professorRepository.obterListDisciplinaLecionadaProfessor(professorModel.getId());
+        List<DisciplinaDto> disciplinasdto = disciplinasLecionada.stream().map(disciplina ->
+                modelMapper.map(disciplina, DisciplinaDto.class)).collect(Collectors.toList());
+        professorDto.setDisciplinas(disciplinasdto);
+        return professorDto;
     }
     @Transactional(readOnly = true)
     public List<ProfessorDto> todosProfessores(){
@@ -73,4 +81,5 @@ public class ProfessorService {
             throw new ObjectNotFoundException("ID não encontrado!");
         }
     }
+
 }
