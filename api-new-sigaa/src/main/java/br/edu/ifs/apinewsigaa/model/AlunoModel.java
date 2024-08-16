@@ -28,6 +28,9 @@ public class AlunoModel {
     private String apelido;
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
+    @ManyToOne
+    @JoinColumn(name = "idDisciplina")
+    private DisciplinaModel disciplina;
 
     public AlunoDto toDto(){
         var modelMapper = new ModelMapper();

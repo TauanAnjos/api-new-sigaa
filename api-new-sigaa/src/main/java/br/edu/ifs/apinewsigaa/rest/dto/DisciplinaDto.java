@@ -10,6 +10,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+
 @Data
 public class DisciplinaDto {
 
@@ -18,6 +20,8 @@ public class DisciplinaDto {
     @NotBlank(message = "Campo número de creditos é obrigatório!")
     @Size(min = 1, message = "Número de créditos não pode ser menor que 1")
     private byte numeroCreditos;
+
+    List<AlunoDto> alunos;
 
     public DisciplinaModel toModel(){
         var modelMapper = new ModelMapper();

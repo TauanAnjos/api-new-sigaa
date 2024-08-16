@@ -42,12 +42,7 @@ public class ProfessorService {
         ProfessorModel professorModel = professorOptional.orElseThrow(() ->
                 new ObjectNotFoundException("Error: Matricula não encontrada! Matricula: " + matricula));
 
-        ProfessorDto professorDto = professorModel.toDto();
-        List<DisciplinaModel> disciplinasLecionada =professorRepository.obterListDisciplinaLecionadaProfessor(professorModel.getId());
-        List<DisciplinaDto> disciplinasdto = disciplinasLecionada.stream().map(disciplina ->
-                modelMapper.map(disciplina, DisciplinaDto.class)).collect(Collectors.toList());
-        professorDto.setDisciplinas(disciplinasdto);
-        return professorDto;
+        return professorModel.toDto();
     }
     @Transactional(readOnly = true)
     public List<ProfessorDto> todosProfessores(){

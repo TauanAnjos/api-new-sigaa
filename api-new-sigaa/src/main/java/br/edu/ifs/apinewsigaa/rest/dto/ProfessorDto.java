@@ -28,6 +28,7 @@ public class ProfessorDto {
     private String celular;
     @NotBlank(message = "Campo matricula é obrigatório!")
     private String matricula;
+
     private List<DisciplinaDto> disciplinas;
 
     public ProfessorModel toModel(){

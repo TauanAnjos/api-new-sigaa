@@ -1,6 +1,5 @@
 package br.edu.ifs.apinewsigaa.model;
 
-import br.edu.ifs.apinewsigaa.rest.dto.DisciplinaDto;
 import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,6 +7,7 @@ import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -34,6 +34,11 @@ public class ProfessorModel {
 
     public ProfessorDto toDto(){
         var modelMapper = new ModelMapper();
-        return modelMapper.map(this, ProfessorDto.class);
+        ProfessorDto dto = modelMapper.map(this, ProfessorDto.class);
+
+        if (this.disciplinas != null){
+            dto.setDisciplinas(this.disciplinas.stream().map(DisciplinaModel::toDto).collect(Collectors.toList()));
+        }
+        return dto;
     }
 }

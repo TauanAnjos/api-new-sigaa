@@ -6,6 +6,8 @@ import lombok.Data;
 import org.modelmapper.ModelMapper;
 
 import javax.print.attribute.standard.MediaSize;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -17,15 +19,22 @@ public class DisciplinaModel {
     private int id;
     @Column(name = "nome", length = 255, nullable = false, unique = true)
     private String nome;
-    @Column(name = "numero_creditos", nullable = false)
+    @Column(name = "numeroCreditos", nullable = false)
     private byte numeroCreditos;
     @ManyToOne
-    @JoinColumn(name = "id_professor")
+    @JoinColumn(name = "idProfessor")
     private ProfessorModel professor;
+    @OneToMany(mappedBy = "disciplina")
+    private List<AlunoModel> alunos;
 
     public DisciplinaDto toDto(){
         var modelMapper = new ModelMapper();
-        return modelMapper.map(this, DisciplinaDto.class);
+        DisciplinaDto dto = modelMapper.map(this, DisciplinaDto.class);
+
+        if(this.alunos != null){
+            dto.setAlunos(this.alunos.stream().map(AlunoModel::toDto).collect(Collectors.toList()));
+        }
+        return dto;
     }
 
 }
