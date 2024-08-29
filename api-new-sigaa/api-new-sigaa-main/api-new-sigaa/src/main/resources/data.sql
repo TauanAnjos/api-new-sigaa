@@ -11,3 +11,6 @@ INSERT INTO ALUNO (APELIDO, CELULAR, CPF, DATANASCIMENTO, EMAIL, MATRICULA, NOME
 INSERT INTO ALUNO (APELIDO, CELULAR, CPF, DATANASCIMENTO, EMAIL, MATRICULA, NOME, IDDISCIPLINA) VALUES('Lulu', '(79)99999-9999', '167.832.820-07', '2016-03-30', 'lulu_maria@gmail.com', '456','Luiza Maria Leite de Carvalho', 1);
 INSERT INTO ALUNO (APELIDO, CELULAR, CPF, DATANASCIMENTO, EMAIL, MATRICULA, NOME, IDDISCIPLINA) VALUES('Lala', '(79)77999-9999', '168.832.820-07', '2016-03-30', 'lala_maria@gmail.com', '789','Lara Cardoso Santos ', 4);
 
+INSERT INTO disciplina_aluno (idDisciplina, idAluno) VALUES (1, 1);
+INSERT INTO disciplina_aluno (idDisciplina, idAluno) VALUES (1, 2);
+INSERT INTO disciplina_aluno (idDisciplina, idAluno) VALUES (4, 3);
