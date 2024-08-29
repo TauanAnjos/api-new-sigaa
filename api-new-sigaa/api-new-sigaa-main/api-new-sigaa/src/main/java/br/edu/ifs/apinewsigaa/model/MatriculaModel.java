@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
-import java.util.List;
-
 @Data
 @Entity
 @Table(name = "matricula")

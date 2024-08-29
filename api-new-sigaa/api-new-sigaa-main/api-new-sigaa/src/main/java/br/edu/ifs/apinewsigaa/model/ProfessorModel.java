@@ -1,17 +1,19 @@
 package br.edu.ifs.apinewsigaa.model;
 
-import br.edu.ifs.apinewsigaa.rest.dto.AlunoDto;
+import br.edu.ifs.apinewsigaa.rest.dto.ProfessorDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name = "aluno")
-public class AlunoModel {
+@Table(name = "professor")
+public class ProfessorModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,24 +21,24 @@ public class AlunoModel {
     private String nome;
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
-    @Column(name = "email", length = 255, nullable = false, unique = true)
-    private String email;
     @Column(name = "dataNascimento", nullable = false)
     private Date dataNascimento;
+    @Column(name = "email",length = 255, nullable = false, unique = true)
+    private String email;
     @Column(name = "celular", length = 14, nullable = false, unique = true)
     private String celular;
-    @Column(name = "apelido", length = 255, nullable = true)
-    private String apelido;
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
-    @ManyToOne
-    @JoinColumn(name = "idDisciplina")
-    private DisciplinaModel disciplina;
-    @OneToMany(mappedBy = "aluno")
-    private List<MatriculaModel> matriculas;
+    @OneToMany(mappedBy = "professor")
+    private List<DisciplinaModel> disciplinas;
 
-    public AlunoDto toDto(){
+    public ProfessorDto toDto(){
         var modelMapper = new ModelMapper();
-        return modelMapper.map(this, AlunoDto.class);
+        ProfessorDto dto = modelMapper.map(this, ProfessorDto.class);
+
+        if (this.disciplinas != null){
+            dto.setDisciplinas(this.disciplinas.stream().map(DisciplinaModel::toDto).collect(Collectors.toList()));
+        }
+        return dto;
     }
 }
