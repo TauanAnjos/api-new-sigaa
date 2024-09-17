@@ -24,11 +24,5 @@ public class KeycloakServiceClient {
 
         ResponseEntity<String> response = restTemplate.postForEntity(keycloakCreateUser,request, String.class);
 
-//        if (response.getStatusCode().is2xxSuccessful()) {
-//            System.out.println("Usuário criado com sucesso");
-//        } else {
-//            throw new RuntimeException("Falha ao criar usuário: " + response.getStatusCode());
-//        }
-
     }
 }
