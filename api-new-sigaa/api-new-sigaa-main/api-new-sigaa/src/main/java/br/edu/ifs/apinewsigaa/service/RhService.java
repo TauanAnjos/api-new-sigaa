@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 public class RhService {
     @Autowired
     private KeycloakServiceClient keycloakServiceClient;
-    public void createUser(String token, UserDto userDto){
 
+    //A classe que estou instanciando é a classe do serviço que vou consumir.
+    public void createUser(String token, UserDto userDto){
+        //estou requisitando o serviço da classe keycloakServiceClient
         keycloakServiceClient.creatUser(token, userDto);
     }
 
